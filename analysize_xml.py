@@ -1,16 +1,36 @@
-#-*-coding:utf-8-*=
+# -*-coding:utf-8-*=
 import sys
+
 sys.path.append('/usr/local/lib/python2.7/site-packages')
-from xml.dom.minidom import parse
 import xml.dom.minidom
 
 
-def get_config(filename='./config.xml'):
-	DOMTree = parse(filename)
-	Data = DOMTree.documentElement
-	device_number = 1
-	ios_version = 1
-	bundle_id = 1
-	device_type = 1
-	level = 1
-	return device_number, ios_version, bundle_id, device_type, level
+def get_device_number(filename='./config.xml'):
+    """
+
+    :type filename: xml
+    """
+    xml_doc = xml.dom.minidom.parse(filename)
+    root = xml_doc.documentElement
+    nodes = root.getElementsByTagName('device')
+    device_number = len(nodes)
+    return device_number
+
+
+def get_config(filename='./config.xml', device_number=None):
+    """
+
+    :type filename: xml
+    :type device_number: int
+    """
+    xml_doc = xml.dom.minidom.parse(filename)
+    root = xml_doc.documentElement
+    nodes = root.getElementsByTagName('device')
+    for node in nodes:
+        if node.getAttribute('number') == str(device_number):
+            ios_version = node.childNodes[2].data
+            bundle_id = node.childNodes[3].data
+            device_type = node.childNodes[4].data
+    nodes = root.getElementsByTagName('level')
+    level = int(nodes[0].data)
+    return ios_version, bundle_id, device_type, level
