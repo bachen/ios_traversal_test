@@ -6,6 +6,8 @@ from analysize_config_xml import get_udid
 from controller import startup_appium
 from controller import shutdown_appium
 import multiprocessing
+from time import sleep
+
 
 # get device number
 device_number = get_device_number(filename='./config.xml')
