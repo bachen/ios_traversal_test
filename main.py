@@ -1,9 +1,11 @@
 # -*-coding:utf-8-*=
-from time import sleep
 from ios import remotedriver
 from analysize_config_xml import get_config
 from analysize_config_xml import get_device_number
 from analysize_config_xml import get_udid
+from controller import startup_appium
+from controller import shutdown_appium
+import multiprocessing
 
 # get device number
 device_number = get_device_number(filename='./config.xml')
@@ -11,7 +13,12 @@ device_number = get_device_number(filename='./config.xml')
 for i in xrange(0, device_number, 1):
     # according to device number, get device args from config.xml
     udid = get_udid(filename='./config.xml', device_number=i)
-    ios_version, bundle_id, device_type, level = get_config(filename='./config.xml', device_number=i)
+    device_name, ios_version, bundle_id, device_type, level = get_config(filename='./config.xml', device_number=i)
+    startup = multiprocessing.Process(target=startup_appium, args=(
+        udid, device_name, ios_version, bundle_id))
+    startup.start()
+    sleep(60)
+
     # start up appium program
     # according to device args, create driver object
 
@@ -22,3 +29,5 @@ for i in xrange(0, device_number, 1):
     # traversal: step 2 discover node which could be clicked
     # traversal: step 3 decide the sort to traversal all node
     driver.quit()
+    shutdown = multiprocessing.Process(target=shutdown_appium, args=())
+    shutdown.start()

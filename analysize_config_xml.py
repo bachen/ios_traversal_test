@@ -8,8 +8,8 @@ from xml.dom.minidom import parse
 def get_device_number(filename='./config.xml'):
     """
 
-	:type filename: xml
-	"""
+    :type filename: xml
+    """
     xml_doc = parse(filename)
     root = xml_doc.documentElement
     nodes = root.getElementsByTagName('device')
@@ -28,11 +28,14 @@ def get_udid(filename='./config.xml', device_number=None):
 def get_config(filename='./config.xml', device_number=None):
     """
 
-	:type filename: xml
-	:type device_number: int
-	"""
+    :type filename: xml
+    :type device_number: int
+    """
     xml_doc = parse(filename)
     root = xml_doc.documentElement
+    # get device name
+    names = root.getElementsByTagName('name')
+    device_name = names[device_number].firstChild.data
     # get version
     versions = root.getElementsByTagName('version')
     version = versions[device_number]
@@ -49,7 +52,7 @@ def get_config(filename='./config.xml', device_number=None):
     traversals = root.getElementsByTagName('traversal')
     levels = traversals[0].getElementsByTagName('level')
     level = int(levels[0].firstChild.data)
-    return ios_version, bundle_id, device_type, level
+    return device_name, ios_version, bundle_id, device_type, level
 
 
 if __name__ == '__main__':
