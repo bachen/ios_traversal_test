@@ -1,9 +1,14 @@
 # -*-coding:utf-8-*=
 import sys
-
 sys.path.append('/usr/local/lib/python2.7/site-packages')
 
 
-def traversal(dr=dr, level=level):
-    res = 0
-    return res
+def find_nodes():
+    return 0
+
+
+def create_md5():
+    return 0
+
+
+
