@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
 
 def startup_appium(udid=None, version=None, bundle_id=None, device_name=None):
-	cmd = 'appium --session-override --platform-version "' + version + '" --platform-name "iOS" --app "' + bundle_id + '" -U "' + udid + '" --device-name "' + device_name + '"'
+	cmd = '/usr/local/bin/node /usr/local/bin/appium --command-timeout "15000" --session-override --debug-log-spacing --log-timestamp --platform-version "' + version + '" --platform-name "iOS" --app "' + bundle_id + '" -U "' + udid + '" --device-name "' + device_name + '"'
 	print cmd
 	system(cmd)
 	sleep(10)
@@ -45,12 +45,20 @@ def shutdown_appium():
 	sleep(10)
 
 
+def waitforappium():
+	return 0
+
+
+def cleansession():
+	return 0
+
+
 if __name__ == "__main__":
 	startup = multiprocessing.Process(target=startup_appium, args=(
-		'2e58ffd37a53a8a3920f51b4ab73fe5e6a363d22', 'iPhone 5', '9.3.2', 'com.gemd.iting'))
+		'2e58ffd37a53a8a3920f51b4ab73fe5e6a363d22', 'iPhone 5', 'com.gemd.iting', '9.3.2'))
 	startup.start()
 	sleep(60)
 	print 'start up appium for 10s.'
-	sleep(10)
+	sleep(60)
 	shutdown = multiprocessing.Process(target=shutdown_appium, args=())
 	shutdown.start()
