@@ -33,6 +33,9 @@ def get_config(filename='./config.xml', device_number=None):
 	"""
 	xml_doc = parse(filename)
 	root = xml_doc.documentElement
+	# get device name
+	names = root.getElementsByTagName('name')
+	device_name = names[device_number].firstChild.data
 	# get version
 	versions = root.getElementsByTagName('version')
 	version = versions[device_number]
@@ -49,7 +52,7 @@ def get_config(filename='./config.xml', device_number=None):
 	traversals = root.getElementsByTagName('traversal')
 	levels = traversals[0].getElementsByTagName('level')
 	level = int(levels[0].firstChild.data)
-	return ios_version, bundle_id, device_type, level
+	return device_name, ios_version, bundle_id, device_type, level
 
 
 if __name__ == '__main__':

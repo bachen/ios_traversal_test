@@ -8,16 +8,16 @@
         <type>iPhone</type>
     </device>
     <device number="2">
-        <name>iPhone 6s</name>
-        <udid>1</udid>
-        <version>9.3.1</version>
+        <name>iPhone 5</name>
+        <udid>2e58ffd37a53a8a3920f51b4ab73fe5e6a363d22</udid>
+        <version>9.3.2</version>
         <bundleid>com.gemd.iting</bundleid>
-        <type>iPad</type>
+        <type>iPhone</type>
     </device>
     <device number="3">
-        <name>iPhone 4</name>
-        <udid>1</udid>
-        <version>7.1.1</version>
+        <name>iPhone 5</name>
+        <udid>2e58ffd37a53a8a3920f51b4ab73fe5e6a363d22</udid>
+        <version>9.3.2</version>
         <bundleid>com.gemd.iting</bundleid>
         <type>iPhone</type>
     </device>
