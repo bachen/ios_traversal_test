@@ -25,14 +25,14 @@ for i in xrange(0, device_number, 1):
     # according to device args, create driver object
 
     driver = remotedriver(bundle_id=bundle_id, device_type=device_type, ios_version=ios_version)
-    print "good job %s" % (device_number,)
+    print "good job %s" % (i,)
     sleep(10)
     # start to traversal app
     # traversal: step 1 get current page source as xml
     # traversal: step 2 discover node which could be clicked
     # traversal: step 3 decide the sort to traversal all node
     driver.quit()
-    sleep(60)
+    sleep(20)
     shutdown = multiprocessing.Process(target=shutdown_appium, args=())
     shutdown.start()
 

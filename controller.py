@@ -46,6 +46,7 @@ def shutdown_appium():
 
 
 def waitforappium():
+	cmd = 'ps '
 	return 0
 
 
