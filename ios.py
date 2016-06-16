@@ -1,13 +1,11 @@
 # -*-coding:utf-8-*=
-import os
-import sys
 
+import sys
 sys.path.append('/usr/local/lib/python2.7/site-packages')
 sys.path.append('/usr/local/lib/')
 from appium import webdriver
 from appium.webdriver.common.touch_action import TouchAction
-import time, threading
-from multiprocessing import Process
+
 
 '''
 --------------------
@@ -30,31 +28,6 @@ find_id():		定位一个元素
 finds_id():		定位一组元素
 long_press():	长按
 '''
-
-
-class Runserver(threading.Thread):
-    def __init__(self):
-        threading.Thread.__init__(self)
-
-    def run(self):
-        os.system(
-            '/usr/local/bin/node /usr/local/bin/appium --command-timeout "7200" --debug-log-spacing --platform-version "7.1.2" --platform-name "iOS" --app "com.gemd.iting" --udid "4394a67923a9f3b8a89ae424b461f8901258fe70" --device-name "iPhone 4"')
-
-
-# start appium server
-
-
-def start_server():
-    t1 = runserver()
-    p = Process(target=t1.run)
-    p.start()
-    print 'start server successfully...'
-
-
-def stop_server():
-    os.system('pkill -9 node')
-    time.sleep(10)
-    print 'stop server...'
 
 
 # settings and common actions
@@ -83,24 +56,6 @@ def close(dr):
         dr.close_app()
     except:
         print 'failed to close app'
-
-
-def install(dr, path=None):
-    try:
-        if dr.is_app_installed('com.xily.baijiajiangtandaquan') == False:
-            dr.install_app(path)
-        time.sleep(20)
-    except:
-        print 'failed to install app'
-
-
-def remove(dr):
-    try:
-        if dr.is_app_installed('com.xily.baijiajiangtandaquan') == True:
-            dr.remove_app('com.xily.baijiajiangtandaquan')
-        time.sleep(20)
-    except:
-        print 'failed to remove app'
 
 
 # test actions

@@ -4,6 +4,6 @@ import sys
 sys.path.append('/usr/local/lib/python2.7/site-packages')
 
 
-def traversal(dr=dr, level=level):
+def traversal(dr, level):
     res = 0
     return res

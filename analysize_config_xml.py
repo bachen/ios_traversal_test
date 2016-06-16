@@ -48,11 +48,26 @@ def get_config(filename='./config.xml', device_number=None):
     devicetypes = root.getElementsByTagName('type')
     devicetype = devicetypes[device_number]
     device_type = devicetype.firstChild.data
+    return device_name, ios_version, bundle_id, device_type
+
+
+def get_ipa_path(filename='./config.xml'):
+    xml_doc = parse(filename)
+    root = xml_doc.documentElement
+    ipas = root.getElementsByTagName('ipa')
+    paths = ipas[0].getElementsByTagName('path')
+    path = paths[0].firstChild.data
+    return path
+
+
+def get_level(filename='./config.xml'):
     # get level
+    xml_doc = parse(filename)
+    root = xml_doc.documentElement
     traversals = root.getElementsByTagName('traversal')
     levels = traversals[0].getElementsByTagName('level')
     level = int(levels[0].firstChild.data)
-    return device_name, ios_version, bundle_id, device_type, level
+    return level
 
 
 if __name__ == '__main__':
@@ -62,3 +77,5 @@ if __name__ == '__main__':
     print res2
     res3 = get_udid('config.xml', 0)
     print res3
+    res4 = get_ipa_path('config.xml')
+    print res4

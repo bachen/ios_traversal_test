@@ -3,7 +3,10 @@ from time import sleep
 from os import system
 import multiprocessing
 
+
 '''
+example:
+
 import multiprocessing
 import time
 
@@ -39,27 +42,23 @@ def startup_appium(udid=None, version=None, bundle_id=None, device_name=None):
 	sleep(10)
 
 
-def shutdown_appium():
-	cmd = 'pkill -9 node'
-	system(cmd)
-	sleep(10)
-
-
-def waitforappium():
-	cmd = 'ps '
-	return 0
+def shutdown_appium(process):
+	if process.is_alive():
+		process.terminate()
 
 
 def cleansession():
-	return 0
+	cmd = 'pkill -9 node'
+	system(cmd)
+	sleep(5)
 
 
 if __name__ == "__main__":
 	startup = multiprocessing.Process(target=startup_appium, args=(
 		'2e58ffd37a53a8a3920f51b4ab73fe5e6a363d22', 'iPhone 5', 'com.gemd.iting', '9.3.2'))
 	startup.start()
-	sleep(60)
+	sleep(120)
 	print 'start up appium for 10s.'
-	sleep(60)
-	shutdown = multiprocessing.Process(target=shutdown_appium, args=())
-	shutdown.start()
+	sleep(20)
+	shutdown_appium(startup)
+	sleep(10)
