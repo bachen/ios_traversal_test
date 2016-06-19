@@ -61,6 +61,11 @@ def close(dr):
 # test actions
 
 
+def get_page_source(dr):
+    res = dr.getPageSource()
+    return res
+
+
 def click(dr, s=None, msg=None):
     try:
         em = dr.find_element_by_xpath(s)
@@ -68,14 +73,6 @@ def click(dr, s=None, msg=None):
     except:
         if msg:
             print '%s.' % msg
-
-
-def clicku(dr, s=None):
-    try:
-        em = dr.find_element_by_ios_uiautomation(s)
-        em.click()
-    except:
-        print 'failed to click element by ios uiautomation'
 
 
 def input(dr, s=None, w=None):
@@ -175,8 +172,3 @@ def switch(dr, cur):
 def swipe(dr, x1, y1, x2, y2, t=1000):
     action = TouchAction(dr)
     action.press(x=x1, y=y1).wait(t).move_to(x=x2, y=y2).release().perform()
-
-
-def getPageSource(dr):
-    res = dr.getPageSource()
-    return res

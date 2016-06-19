@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<page>
-    <homepage></homepage>
-    <selfpage></selfpage>
-    <userpage></userpage>
-    <catalogpage></catalogpage>
-    <searchuser></searchuser>
-    <searchall></searchall>
-</page>
+<node>
+    <!--1:id+class+name 2:id+class+name+label 3:id+class+name+label+value 4:no filter-->
+    <filter>1</filter>
+    <!--控件白名单-->
+    <click>
+        <class>UIAImage</class>
+        <class>UIAButton</class>
+        <class>UIASwitch</class>
+        <class>UIATableCell</class>
+        <!--<class>UIAStaticText</class>-->
+        <class>UIAPickerWheel</class>
+        <class>UIACollectionCell</class>
+    </click>
+    <input>
+        <class>UIATextField</class>
+        <class>UIASearchBar</class>
+        <class>UIASecureTextField</class>
+    </input>
+    <blacklist>
+
+    </blacklist>
+</node>
