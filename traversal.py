@@ -5,6 +5,8 @@ from ios import remotedriver
 from time import sleep
 from analysize_nodes import find_nodes
 from analysize_nodes import get_nodes_config
+from analysize_nodes import get_window_first_8_elements
+from hashlib import md5
 
 
 def traversal(dr, level):
@@ -12,13 +14,25 @@ def traversal(dr, level):
     return res
 
 
+def create_current_window_id(dr):
+    xml_res = dr.page_source
+    window_string = get_window_first_8_elements(xml_res)
+    window_id = md5(window_string)
+    return window_id
+
+
+def md5(window):
+    m = md5()
+    m.update(window)
+    return m.hexdegist()
+
+
 def get_current_page_all_nodes(dr):
     # get all nodes in current page
     xml_res = dr.page_source
-    print xml_res
     click_config, input_config = get_nodes_config(filename='./node.xml')
-    enable_nodes = find_nodes(xml_res=unicode(xml_res), click_config=click_config, input_config=input_config)
-    return enable_nodes
+    click_nodes, input_nodes = find_nodes(xml_res=xml_res.encode('utf8'), click_config=click_config, input_config=input_config)
+    return click_nodes, input_nodes
 
 
 if __name__ == '__main__':
