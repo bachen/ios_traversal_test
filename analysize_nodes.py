@@ -4,7 +4,7 @@ import sys
 sys.path.append('/usr/local/lib/python2.7/site-packages')
 from xml.dom.minidom import parseString
 from xml.dom.minidom import parse
-
+from hashlib import md5
 
 def find_nodes(xml_res, click_config, input_config):
 	xml_doc = parseString(xml_res)
@@ -25,7 +25,7 @@ def find_nodes(xml_res, click_config, input_config):
 		click_nodes = click_nodes + xml_2_xpath(root, 'UIACollectionCell')
 	if 'UIAStaticText' in click_config:
 		click_nodes = click_nodes + xml_2_xpath(root, 'UIAStaticText')
-		# get input enable elements:
+	# get input enable elements:
 	input_nodes = []
 	if 'UIATextField' in input_config:
 		input_nodes = xml_2_xpath(root, 'UIATextField')
@@ -77,10 +77,10 @@ def get_window_first_8_elements(xml_res):
 	root = xml_doc.documentElement
 	start_elements = root.getElementsByTagName('UIAButton')
 	window_string = ''
-	for count in xrange(0,8,1):
+	for count in xrange(0, 8, 1):
 		window_string = window_string + start_elements[count].getAttribute('name')
 	return window_string
 
 
 if __name__ == '__main__':
-	print get_nodes_config()
+	pass
