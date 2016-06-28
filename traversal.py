@@ -11,12 +11,23 @@ from hashlib import md5
 
 
 def traversal(dr, level):
-	res = 0
-	return res
+	# store window id
+	work_stacks = []
+	repeat_pages = {
+		'md5': 'count'
+	}
+	try:
+		while work_stacks is []:
+			xml_res = dr.page_source
+			current_window_id = create_current_window_id(xml_res)
+		res = True
+	except:
+		res = False
+	finally:
+		return res
 
 
-def create_current_window_id(dr):
-	xml_res = dr.page_source
+def create_current_window_id(xml_res):
 	window_string = get_window_first_8_elements(xml_res.encode('utf8'))
 	window_id = create_md5(window_string.encode('utf8'))
 	return window_id
@@ -28,9 +39,8 @@ def create_md5(window):
 	return m.hexdigest()
 
 
-def get_current_page_all_nodes(dr):
+def get_current_page_all_nodes(xml_res):
 	# get all nodes in current page
-	xml_res = dr.page_source
 	click_config, input_config = get_nodes_config(filename='./node.xml')
 	click_nodes, input_nodes = find_nodes(
 		xml_res=xml_res.encode('utf8'),
