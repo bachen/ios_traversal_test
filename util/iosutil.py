@@ -5,6 +5,7 @@ sys.path.append('/usr/local/lib/python2.7/site-packages')
 sys.path.append('/usr/local/lib/')
 from appium import webdriver
 from appium.webdriver.common.touch_action import TouchAction
+from time import sleep
 
 
 '''
@@ -172,3 +173,8 @@ def switch(dr, cur):
 def swipe(dr, x1, y1, x2, y2, t=1000):
     action = TouchAction(dr)
     action.press(x=x1, y=y1).wait(t).move_to(x=x2, y=y2).release().perform()
+
+
+def back(dr):
+    dr.tap([(25, 34)])
+    sleep(3)

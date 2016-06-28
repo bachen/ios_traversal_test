@@ -12,12 +12,12 @@ from hashlib import md5
 
 def traversal(dr, level):
 	# store window id
-	work_stacks = []
+	work_stack = []
 	repeat_pages = {
 		'md5': 'count'
 	}
 	try:
-		while work_stacks is []:
+		while work_stack is []:
 			xml_res = dr.page_source
 			current_window_id = create_current_window_id(xml_res)
 		res = True
@@ -25,6 +25,10 @@ def traversal(dr, level):
 		res = False
 	finally:
 		return res
+
+
+def dfs_search(work_stack, level):
+	exist_work_stack = []
 
 
 def create_current_window_id(xml_res):
