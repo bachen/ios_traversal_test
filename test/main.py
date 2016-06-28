@@ -1,16 +1,17 @@
 # -*-coding:utf-8-*=
-from ios import remotedriver
-from analysize_config_xml import get_config
-from analysize_config_xml import get_device_number
-from analysize_config_xml import get_udid
-from analysize_config_xml import get_level
-from controller import startup_appium
-from controller import shutdown_appium
-from controller import cleansession
-from traversal import traversal
 import multiprocessing
 from time import sleep
 
+from controller import cleansession
+from controller import shutdown_appium
+from controller import startup_appium
+from ios import remotedriver
+from traversal import traversal
+
+from config.analysize_config_xml import get_config
+from config.analysize_config_xml import get_device_number
+from config.analysize_config_xml import get_level
+from config.analysize_config_xml import get_udid
 
 # get device number
 device_number = get_device_number(filename='./config.xml')

@@ -11,6 +11,7 @@
         <!--<class>UIAStaticText</class>-->
         <class>UIAPickerWheel</class>
         <class>UIACollectionCell</class>
+        <class>UIAElement</class>
     </click>
     <input>
         <class>UIATextField</class>
@@ -23,4 +24,7 @@
     <trigger>
 
     </trigger>
+    <login>
+
+    </login>
 </node>

@@ -4,7 +4,7 @@ import sys
 sys.path.append('/usr/local/lib/python2.7/site-packages')
 from xml.dom.minidom import parseString
 from xml.dom.minidom import parse
-from hashlib import md5
+
 
 def find_nodes(xml_res, click_config, input_config):
 	xml_doc = parseString(xml_res)

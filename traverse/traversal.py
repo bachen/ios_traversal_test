@@ -2,11 +2,11 @@
 import sys
 
 sys.path.append('/usr/local/lib/python2.7/site-packages')
-from ios import remotedriver
+from util.iosutil import remotedriver
 from time import sleep
-from analysize_nodes import find_nodes
-from analysize_nodes import get_nodes_config
-from analysize_nodes import get_window_first_8_elements
+from util.analysize_nodes import find_nodes
+from util.analysize_nodes import get_nodes_config
+from util.analysize_nodes import get_window_first_8_elements
 from hashlib import md5
 
 

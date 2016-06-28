@@ -1,10 +1,11 @@
 # -*-coding:utf-8-*=
-from time import sleep
 from os import system
-from analysize_config_xml import get_ipa_path
-from analysize_config_xml import get_config
-from analysize_config_xml import get_device_number
-from analysize_config_xml import get_udid
+from time import sleep
+
+from config.analysize_config_xml import get_config
+from config.analysize_config_xml import get_device_number
+from config.analysize_config_xml import get_ipa_path
+from config.analysize_config_xml import get_udid
 
 
 def install(udid, bundle_id, path):
