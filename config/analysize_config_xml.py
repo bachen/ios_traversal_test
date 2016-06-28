@@ -64,8 +64,8 @@ def get_level(filename='./config.xml'):
     # get level
     xml_doc = parse(filename)
     root = xml_doc.documentElement
-    traversals = root.getElementsByTagName('traversal')
-    levels = traversals[0].getElementsByTagName('level')
+    traversals = root.getElementsByTagName('dfs')
+    levels = traversals[0].getElementsByTagName('depth')
     level = int(levels[0].firstChild.data)
     return level
 

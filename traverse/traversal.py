@@ -10,25 +10,31 @@ from util.analysize_nodes import get_window_first_8_elements
 from hashlib import md5
 
 
-def traversal(dr, level):
-	# store window id
-	work_stack = []
-	repeat_pages = {
-		'md5': 'count'
-	}
+def dfs_search(dr, depth):
+	# type of object is list: store window ids, each of them, their nodes had totally been traversed.
+	exist_pages = []
+	# type of object is list: store window ids which wait to traverse, and length <= depth.
+	pages_stack = []
+	# type of object is dict: key is window id, and type of value is list, which store the node on this page
+	# that not yet click or input.
+	nodes_stack = {}
+	# initialize first page of app
+	xml_res = dr.page_source
+	current_window_id = create_current_window_id(xml_res)
+	pages_stack.append(current_window_id)
+	nodes = get_current_page_all_nodes(xml_res)
+	nodes_stack[current_window_id] = nodes
+	# start traverse app
 	try:
-		while work_stack is []:
+		while pages_stack is not []:
 			xml_res = dr.page_source
 			current_window_id = create_current_window_id(xml_res)
-		res = True
+			if current_window_id not in pages_stack
+		test_result = True
 	except:
-		res = False
+		test_result = False
 	finally:
-		return res
-
-
-def dfs_search(work_stack, level):
-	exist_work_stack = []
+		return test_result
 
 
 def create_current_window_id(xml_res):

@@ -14,9 +14,9 @@
         <bundleid>com.gemd.iting</bundleid>
         <type>iPhone</type>
     </device>
-    <traversal>
-        <level>10</level>
-    </traversal>
+    <dfs>
+        <depth>10</depth>
+    </dfs>
     <ipa>
         <path>/Users/jenkins/.jenkins/jobs/ios_build_master/workspace/build/ting-*.ipa</path>
     </ipa>
