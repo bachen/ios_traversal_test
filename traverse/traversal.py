@@ -91,8 +91,6 @@ def dfs_search(dr, depth):
 				click_nodes, input_nodes = get_current_page_all_nodes(xml_res)
 				click_nodes_stack[current_window_id] = click_nodes
 				input_nodes_stack[current_window_id] = input_nodes
-			# update pages
-			xml_res = dr.page_source
 		test_result = True
 	except:
 		test_result = False
