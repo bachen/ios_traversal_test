@@ -67,16 +67,16 @@ def get_page_source(dr):
     return res
 
 
-def click(dr, s=None, msg=None):
+def click(em, msg=None):
     try:
-        em = dr.find_element_by_xpath(s)
         em.click()
+        sleep(5)
     except:
         if msg:
             print '%s.' % msg
 
 
-def input(dr, s=None, w=None):
+def inputs(dr, s=None, w=None):
     try:
         em = dr.find_element_by_xpath(s)
         em.set_value(w)
@@ -95,7 +95,7 @@ def inputu(dr, s=None, w=None):
 # inputw()函数用于webview页面的操作
 
 
-def inputw(dr, s=None, w=None):
+def input(dr, s=None, w=None):
     try:
         em = dr.find_element_by_xpath(s)
         em.send_keys(w)
@@ -176,5 +176,12 @@ def swipe(dr, x1, y1, x2, y2, t=1000):
 
 
 def back(dr):
-    dr.tap([(25, 34)])
-    sleep(3)
+    try:
+        # cancel search
+        cancel_btn = dr.find_element_by_xpath('//UIAApplication[1]/UIAWindow[1]/UIAButton[@name="取消"]')
+        cancel_btn.click()
+        sleep(4)
+    except:
+        # back btn
+        dr.tap([(25, 34)])
+    sleep(4)
