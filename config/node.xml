@@ -8,6 +8,7 @@
         <class>UIAButton</class>
         <class>UIASwitch</class>
         <class>UIATableCell</class>
+        <class>UIAElement</class>
         <!--<class>UIAStaticText</class>-->
         <class>UIAPickerWheel</class>
         <class>UIACollectionCell</class>
@@ -19,10 +20,15 @@
         <class>UIASecureTextField</class>
     </input>
     <blacklist>
-
+        <class>//UIAApplication/UIAWindow/UIAStatusBar/UIAElement</class>
+        <class>QQ</class>
+        <class>微信</class>
+        <class>微博</class>
+        <class>短信</class>
     </blacklist>
     <trigger>
-
+        <class>//UIAApplication/UIAWindow/UIAAlert</class>
+        <class>//UIAApplication/UIAWindow/UIAActionSheet</class>
     </trigger>
     <login>
 

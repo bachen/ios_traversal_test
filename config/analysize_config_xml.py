@@ -5,7 +5,7 @@ sys.path.append('/usr/local/lib/python2.7/site-packages')
 from xml.dom.minidom import parse
 
 
-def get_device_number(filename='./config.xml'):
+def get_device_number(filename):
     """
 
     :type filename: xml
@@ -17,7 +17,7 @@ def get_device_number(filename='./config.xml'):
     return device_number
 
 
-def get_udid(filename='./config.xml', device_number=None):
+def get_udid(filename, device_number=None):
     xml_doc = parse(filename)
     root = xml_doc.documentElement
     udids = root.getElementsByTagName('udid')
@@ -25,7 +25,7 @@ def get_udid(filename='./config.xml', device_number=None):
     return udid
 
 
-def get_config(filename='./config.xml', device_number=None):
+def get_config(filename='../config/config.xml', device_number=None):
     """
 
     :type filename: xml
@@ -51,7 +51,7 @@ def get_config(filename='./config.xml', device_number=None):
     return device_name, ios_version, bundle_id, device_type
 
 
-def get_ipa_path(filename='./config.xml'):
+def get_ipa_path(filename):
     xml_doc = parse(filename)
     root = xml_doc.documentElement
     ipas = root.getElementsByTagName('ipa')
@@ -60,7 +60,7 @@ def get_ipa_path(filename='./config.xml'):
     return path
 
 
-def get_level(filename='./config.xml'):
+def get_level(filename):
     # get level
     xml_doc = parse(filename)
     root = xml_doc.documentElement

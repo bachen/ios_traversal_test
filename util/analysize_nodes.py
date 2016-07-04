@@ -6,33 +6,17 @@ from xml.dom.minidom import parseString
 from xml.dom.minidom import parse
 
 
-def find_nodes(xml_res, click_config, input_config):
+def find_nodes(xml_res, click_config, input_config, black_config):
 	xml_doc = parseString(xml_res)
 	root = xml_doc.documentElement
 	click_nodes = []
 	# get click enable elements:
-	if 'UIAImage' in click_config:
-		click_nodes = xml_2_xpath(root, 'UIAImage')
-	if 'UIAButton' in click_config:
-		click_nodes = click_nodes + xml_2_xpath(root, 'UIAButton')
-	if 'UIASwitch' in click_config:
-		click_nodes = click_nodes + xml_2_xpath(root, 'UIASwitch')
-	if 'UIATableCell' in click_config:
-		click_nodes = click_nodes + xml_2_xpath(root, 'UIATableCell')
-	if 'UIAPickerWheel' in click_config:
-		click_nodes = click_nodes + xml_2_xpath(root, 'UIAPickerWheel')
-	if 'UIACollectionCell' in click_config:
-		click_nodes = click_nodes + xml_2_xpath(root, 'UIACollectionCell')
-	if 'UIAStaticText' in click_config:
-		click_nodes = click_nodes + xml_2_xpath(root, 'UIAStaticText')
+	for config in click_config:
+		click_nodes = click_nodes + xml_2_xpath(root, config, black_config)
 	# get input enable elements:
 	input_nodes = []
-	if 'UIATextField' in input_config:
-		input_nodes = xml_2_xpath(root, 'UIATextField')
-	if 'UIASearchBar' in input_config:
-		input_nodes = input_nodes + xml_2_xpath(root, 'UIASearchBar')
-	if 'UIASecureTextField' in input_config:
-		input_nodes = input_nodes + xml_2_xpath(root, 'UIASecureTextField')
+	for config in input_config:
+		input_nodes = input_nodes + xml_2_xpath(root, config, black_config)
 	return click_nodes, input_nodes
 
 
@@ -51,34 +35,52 @@ def get_nodes_config(filename='./node.xml'):
 	input_config = []
 	for input_i in inputs:
 		input_config.append(input_i.firstChild.data)
-	return click_config, input_config
+	black_configs = root.getElementsByTagName('blacklist')
+	blacks = black_configs[0].getElementsByTagName('class')
+	black_config = []
+	for black in blacks:
+		black_config.append(black.firstChild.data)
+	return click_config, input_config, black_config
 
 
-def xml_2_xpath(root, element_type):
+def xml_2_xpath(root, element_type, black_config):
 	uia_elements = root.getElementsByTagName(element_type)
 	# elements collect all nodes' xpath which enabled = true and visible = true
 	elements = []
 	for element in uia_elements:
-		if element.getAttribute('enabled') == "true" and element.getAttribute('label') != "":
+		if element.getAttribute('enabled') == "true" and element.getAttribute('name') != "":
 			# element_path is raw path get from xml object, such as '/0/0/1/2'
 			element_path = element.getAttribute('path').split('/')
-			element_xpath = '/' + element.nodeName + '[contains(@label, "' + element.getAttribute('label') + '")]'
+			element_xpath = '/' + element.nodeName + '[@name="' + element.getAttribute('label') + '"]'
+			element = element.parentNode
 			element_path.pop()
 			while element_path[-1] != '':
 				element_xpath = '/' + element.nodeName + element_xpath
 				element = element.parentNode
 				element_path.pop()
-			elements.append(element_xpath)
+			# //UIAAplication/...
+			element_xpath = '/' + element_xpath
+			flag = True
+			for black in black_config:
+				if black in element_xpath:
+					flag = False
+					break
+			if flag:
+				elements.append(element_xpath)
 	return elements
 
 
-def get_window_first_8_elements(xml_res):
+def get_window_8_elements(xml_res):
 	xml_doc = parseString(xml_res)
 	root = xml_doc.documentElement
 	start_elements = root.getElementsByTagName('UIAButton')
 	window_string = ''
-	for count in xrange(0, 8, 1):
-		window_string = window_string + start_elements[count].getAttribute('name')
+	if len(start_elements) > 9:
+		for count in xrange(1, 9, 1):
+			window_string = window_string + start_elements[count].getAttribute('name')
+	else:
+		for element in start_elements:
+			window_string = window_string + element.getAttribute('name')
 	return window_string
 
 

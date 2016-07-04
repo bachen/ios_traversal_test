@@ -146,7 +146,7 @@ def finds(dr, s=None):
 def long_press(dr, s=None):
     try:
         em = dr.find_element_by_xpath(s)
-        action = TouchAction(self)
+        action = TouchAction(dr)
         action.long_press(em).release().perform()
     except:
         print 'failed to long press element'
@@ -180,8 +180,8 @@ def back(dr):
         # cancel search
         cancel_btn = dr.find_element_by_xpath('//UIAApplication[1]/UIAWindow[1]/UIAButton[@name="取消"]')
         cancel_btn.click()
-        sleep(4)
+        sleep(5)
     except:
         # back btn
         dr.tap([(25, 34)])
-    sleep(4)
+        sleep(5)
