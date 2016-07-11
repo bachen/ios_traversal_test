@@ -29,14 +29,22 @@ def dfs_search(dr, depth):
 	current_window_id = create_current_window_id(xml_res)
 	pages_stack.append(current_window_id)
 	click_nodes, input_nodes = get_current_page_all_nodes(xml_res)
-	click_nodes_stack[current_window_id] = click_nodes
+	first_page_plus = [
+		'//UIAApplication/UIAWindow/UIATabBar/UIAElement[@name="我"]',
+		'//UIAApplication/UIAWindow/UIATabBar/UIAElement[@name="下载听"]',
+		'//UIAApplication/UIAWindow/UIATabBar/UIAElement[@name="定制听"]',
+		'//UIAApplication/UIAWindow/UIATabBar/UIAElement[@name="全局播放器"]'
+		]
+	click_nodes_stack[current_window_id] = first_page_plus + click_nodes
 	input_nodes_stack[current_window_id] = input_nodes
 	# start traverse app
 	while pages_stack is not []:
 		pre_page = pages_stack[-1]
-		if click_nodes_stack[pre_page] is not []:
+		print pre_page
+		if click_nodes_stack[pre_page]:
 			# xpath: //UIAApplication/UIAWindow/UIAButton[contains('name','search')]
 			tmp_click_node = click_nodes_stack[pre_page].pop()
+			print tmp_click_node
 			# next node
 			# print click_nodes_stack[pre_page][-1]
 			if isinstance(tmp_click_node, WebElement):
@@ -58,16 +66,16 @@ def dfs_search(dr, depth):
 			current_window_id = create_current_window_id(xml_res)
 			if current_window_id == pre_page:
 				continue
-		elif input_nodes_stack[pre_page] is not []:
+		elif input_nodes_stack[pre_page]:
 			tmp_input_node = input_nodes_stack[pre_page].pop()
 			if isinstance(tmp_input_node, WebElement):
-				input(tmp_input_node)
+				input(tmp_input_node, 'test')
 				xml_res = dr.page_source
 			else:
 				ems = finds(dr, tmp_input_node)
 				length_of_ems = len(ems)
 				if length_of_ems == 1:
-					input(ems[0])
+					input(ems[0], 'test')
 					xml_res = dr.page_source
 				else:
 					input(ems[0])
@@ -87,6 +95,7 @@ def dfs_search(dr, depth):
 		while len(pages_stack) > depth:
 			back(dr)
 			pages_stack.pop()
+			print 'reach the depth'
 		xml_res = dr.page_source
 		current_window_id = create_current_window_id(xml_res)
 		# print current_window_id
@@ -137,4 +146,3 @@ if __name__ == '__main__':
 	dfs_search(driver, 10)
 	sleep(10)
 	driver.quit()
-

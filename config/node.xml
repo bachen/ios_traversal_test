@@ -4,15 +4,14 @@
     <filter>1</filter>
     <!--控件白名单-->
     <click>
+        <class>UIAElement</class>
         <class>UIAImage</class>
         <class>UIAButton</class>
         <class>UIASwitch</class>
         <class>UIATableCell</class>
-        <class>UIAElement</class>
-        <!--<class>UIAStaticText</class>-->
         <class>UIAPickerWheel</class>
         <class>UIACollectionCell</class>
-        <class>UIAElement</class>
+        <!--<class>UIAStaticText</class>-->
     </click>
     <input>
         <class>UIATextField</class>
@@ -20,16 +19,23 @@
         <class>UIASecureTextField</class>
     </input>
     <blacklist>
-        <class>//UIAApplication/UIAWindow/UIAStatusBar/UIAElement</class>
+        <class>//UIAApplication/UIAWindow/UIAStatusBar</class>
+        <class>//UIAApplication/UIAWindow/UIATabBar/UIAElement</class>
         <class>QQ</class>
         <class>微信</class>
         <class>微博</class>
         <class>短信</class>
+        <class>定时关闭</class>
+        <class>去鼓励</class>
+        <class>去吐槽</class>
+        <class>退出</class>
+        <class>注销</class>
     </blacklist>
     <trigger>
-        <class>//UIAApplication/UIAWindow/UIAAlert</class>
-        <class>//UIAApplication/UIAWindow/UIAActionSheet</class>
     </trigger>
+    <special>
+        <class></class>
+    </special>
     <login>
 
     </login>

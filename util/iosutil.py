@@ -70,7 +70,7 @@ def get_page_source(dr):
 def click(em, msg=None):
     try:
         em.click()
-        sleep(5)
+        sleep(7)
     except:
         if msg:
             print '%s.' % msg
@@ -116,14 +116,6 @@ def hide_keyboard(dr, s=None):
         print 'failed to hide keyboard'
 
 
-def tap(dr, x, y):
-    try:
-        action = TouchAction()
-        action.tap(em).perform()
-    except:
-        print 'failed to tap element'
-
-
 def find(dr, s=None):
     # native app find element method
     # 判断当前元素存在时，请勿使用该方法
@@ -140,7 +132,7 @@ def finds(dr, s=None):
         ems = dr.find_elements_by_xpath(s)
         return ems
     except:
-        print 'failed to find elements by xpath'
+        print 'failed to find elements by xpath %s ' % s
 
 
 def long_press(dr, s=None):
@@ -183,5 +175,5 @@ def back(dr):
         sleep(5)
     except:
         # back btn
-        dr.tap([(25, 34)])
+        dr.tap([(25, 44)], 0)
         sleep(5)

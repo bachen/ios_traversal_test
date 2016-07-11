@@ -48,10 +48,10 @@ def xml_2_xpath(root, element_type, black_config):
 	# elements collect all nodes' xpath which enabled = true and visible = true
 	elements = []
 	for element in uia_elements:
-		if element.getAttribute('enabled') == "true" and element.getAttribute('name') != "":
+		if element.getAttribute('enabled') == "true" and element.getAttribute('name'):
 			# element_path is raw path get from xml object, such as '/0/0/1/2'
 			element_path = element.getAttribute('path').split('/')
-			element_xpath = '/' + element.nodeName + '[@name="' + element.getAttribute('label') + '"]'
+			element_xpath = '/' + element.nodeName + '[@name="' + element.getAttribute('name') + '"]'
 			element = element.parentNode
 			element_path.pop()
 			while element_path[-1] != '':
@@ -66,20 +66,26 @@ def xml_2_xpath(root, element_type, black_config):
 					flag = False
 					break
 			if flag:
-				elements.append(element_xpath)
+				# do not add duplicate xpath
+				if element_xpath not in elements:
+					elements.append(element_xpath)
 	return elements
 
 
 def get_window_8_elements(xml_res):
 	xml_doc = parseString(xml_res)
 	root = xml_doc.documentElement
-	start_elements = root.getElementsByTagName('UIAButton')
+	button_elements = root.getElementsByTagName('UIAButton')
+	collection_elements = root.getElementsByTagName('UIACollectionCell')
 	window_string = ''
-	if len(start_elements) > 9:
+	if len(collection_elements) > 0:
+		for count in xrange(0,1,1):
+			window_string += collection_elements[count].getAttribute('name')
+	if len(button_elements) > 9:
 		for count in xrange(1, 9, 1):
-			window_string = window_string + start_elements[count].getAttribute('name')
+			window_string += button_elements[count].getAttribute('name')
 	else:
-		for element in start_elements:
+		for element in button_elements:
 			window_string = window_string + element.getAttribute('name')
 	return window_string
 
